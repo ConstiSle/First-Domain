@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mathe-Nachhilfe | Verständlich, geduldig, persönlich</title>
-  <meta name="description" content="Persönliche Mathe-Nachhilfe für Schülerinnen und Schüler: Geometrie, Trigonometrie, Ähnlichkeit und mehr. Jetzt eine Stunde anfragen.">
+  <meta name="description" content="Persönliche Mathe-Nachhilfe für Schülerinnen und Schüler: Geometrie, Trigonometrie, Ähnlichkeit, Gleichungen, Funktionen und mehr. Jetzt eine Stunde anfragen.">
 
   <!-- Schriftarten von Google Fonts:
        "Nunito" für normalen Text, "Caveat" als Handschrift im Themenbuch -->
@@ -399,7 +399,7 @@
       display: flex;
       align-items: baseline;
       gap: 8px;
-      padding: 12px 10px;
+      padding: 8px 10px;
       border-radius: 8px;
       font-weight: 700;
       font-size: 1.1rem;
@@ -415,6 +415,8 @@
     #t-geo:checked   ~ .buch label[for="t-geo"],
     #t-trig:checked  ~ .buch label[for="t-trig"],
     #t-aehn:checked  ~ .buch label[for="t-aehn"],
+    #t-gl:checked    ~ .buch label[for="t-gl"],
+    #t-fkt:checked   ~ .buch label[for="t-fkt"],
     #t-mehr:checked  ~ .buch label[for="t-mehr"] {
       background: rgba(215, 38, 61, 0.1);
       color: var(--rot);
@@ -424,6 +426,8 @@
     #t-geo:focus-visible  ~ .buch label[for="t-geo"],
     #t-trig:focus-visible ~ .buch label[for="t-trig"],
     #t-aehn:focus-visible ~ .buch label[for="t-aehn"],
+    #t-gl:focus-visible   ~ .buch label[for="t-gl"],
+    #t-fkt:focus-visible  ~ .buch label[for="t-fkt"],
     #t-mehr:focus-visible ~ .buch label[for="t-mehr"] {
       outline: 3px solid var(--blau);
     }
@@ -440,6 +444,8 @@
     #t-geo:checked  ~ .buch .kapitel-geo,
     #t-trig:checked ~ .buch .kapitel-trig,
     #t-aehn:checked ~ .buch .kapitel-aehn,
+    #t-gl:checked   ~ .buch .kapitel-gl,
+    #t-fkt:checked  ~ .buch .kapitel-fkt,
     #t-mehr:checked ~ .buch .kapitel-mehr {
       opacity: 1;
       visibility: visible;
@@ -481,6 +487,9 @@
     }
     .bruch > span:first-child { border-bottom: 2px solid currentColor; padding: 0 4px; }
 
+    /* Wurzelstrich über einem längeren Ausdruck */
+    .wurzel { border-top: 2px solid currentColor; padding: 2px 2px 0; }
+
     /* Die Blätter, die beim Themenwechsel umgeblättert werden */
     .blatt {
       position: absolute;
@@ -507,7 +516,9 @@
     #t-geo:checked  ~ .buch .blatt { animation-name: blaettern-1; }
     #t-trig:checked ~ .buch .blatt { animation-name: blaettern-2; }
     #t-aehn:checked ~ .buch .blatt { animation-name: blaettern-3; }
-    #t-mehr:checked ~ .buch .blatt { animation-name: blaettern-4; }
+    #t-gl:checked   ~ .buch .blatt { animation-name: blaettern-4; }
+    #t-fkt:checked  ~ .buch .blatt { animation-name: blaettern-5; }
+    #t-mehr:checked ~ .buch .blatt { animation-name: blaettern-6; }
 
     @keyframes blaettern-1 {
       0%   { opacity: 1; transform: rotate3d(var(--achse), 0deg); filter: brightness(1); }
@@ -528,6 +539,18 @@
       100% { opacity: 0; transform: rotate3d(var(--achse), -180deg); }
     }
     @keyframes blaettern-4 {
+      0%   { opacity: 1; transform: rotate3d(var(--achse), 0deg); filter: brightness(1); }
+      50%  { filter: brightness(0.82); }
+      99%  { opacity: 1; transform: rotate3d(var(--achse), -180deg); filter: brightness(1); }
+      100% { opacity: 0; transform: rotate3d(var(--achse), -180deg); }
+    }
+    @keyframes blaettern-5 {
+      0%   { opacity: 1; transform: rotate3d(var(--achse), 0deg); filter: brightness(1); }
+      50%  { filter: brightness(0.82); }
+      99%  { opacity: 1; transform: rotate3d(var(--achse), -180deg); filter: brightness(1); }
+      100% { opacity: 0; transform: rotate3d(var(--achse), -180deg); }
+    }
+    @keyframes blaettern-6 {
       0%   { opacity: 1; transform: rotate3d(var(--achse), 0deg); filter: brightness(1); }
       50%  { filter: brightness(0.82); }
       99%  { opacity: 1; transform: rotate3d(var(--achse), -180deg); filter: brightness(1); }
@@ -828,6 +851,8 @@
         <input type="radio" name="thema" id="t-geo"  class="thema-wahl">
         <input type="radio" name="thema" id="t-trig" class="thema-wahl">
         <input type="radio" name="thema" id="t-aehn" class="thema-wahl">
+        <input type="radio" name="thema" id="t-gl"   class="thema-wahl">
+        <input type="radio" name="thema" id="t-fkt"  class="thema-wahl">
         <input type="radio" name="thema" id="t-mehr" class="thema-wahl">
 
         <div class="buch einblenden">
@@ -841,7 +866,9 @@
                 <li><label for="t-geo"><span class="nr">1</span> Geometrie <span class="punkte"></span> S. 12</label></li>
                 <li><label for="t-trig"><span class="nr">2</span> Trigonometrie <span class="punkte"></span> S. 34</label></li>
                 <li><label for="t-aehn"><span class="nr">3</span> Ähnlichkeit <span class="punkte"></span> S. 56</label></li>
-                <li><label for="t-mehr"><span class="nr">4</span> Weitere Schulmathe <span class="punkte"></span> S. 78</label></li>
+                <li><label for="t-gl"><span class="nr">4</span> Gleichungen & Terme <span class="punkte"></span> S. 78</label></li>
+                <li><label for="t-fkt"><span class="nr">5</span> Funktionen <span class="punkte"></span> S. 94</label></li>
+                <li><label for="t-mehr"><span class="nr">6</span> Weitere Schulmathe <span class="punkte"></span> S. 112</label></li>
               </ul>
               <p class="tipp">👉 Tippe auf ein Kapitel, um umzublättern.</p>
               <span class="seitenzahl">– 1 –</span>
@@ -908,21 +935,56 @@
                 <span class="seitenzahl">– 56 –</span>
               </article>
 
-              <!-- Kapitel 4: Weitere Schulmathematik -->
-              <article class="kapitel kapitel-mehr">
+              <!-- Kapitel 4: Gleichungen & Terme -->
+              <article class="kapitel kapitel-gl">
                 <p class="handschrift">Kapitel 4</p>
+                <h3>Gleichungen & Terme</h3>
+                <ul class="formeln">
+                  <li><span class="name">Ausmultiplizieren</span> <span class="formel">a · (b + c) = ab + ac</span></li>
+                  <li><span class="name">1. binomische Formel</span> <span class="formel">(a + b)² = a² + 2ab + b²</span></li>
+                  <li><span class="name">2. binomische Formel</span> <span class="formel">(a − b)² = a² − 2ab + b²</span></li>
+                  <li><span class="name">3. binomische Formel</span> <span class="formel">(a + b)(a − b) = a² − b²</span></li>
+                  <li><span class="name">pq-Formel für x² + px + q = 0</span>
+                    <span class="formel">x = −<span class="bruch"><span>p</span><span>2</span></span> ± √<span class="wurzel">(<span class="bruch"><span>p</span><span>2</span></span>)² − q</span></span></li>
+                </ul>
+                <a href="#kontakt" class="button button-rot">Stunde zu Gleichungen anfragen</a>
+                <span class="seitenzahl">– 78 –</span>
+              </article>
+
+              <!-- Kapitel 5: Funktionen -->
+              <article class="kapitel kapitel-fkt">
+                <p class="handschrift">Kapitel 5</p>
+                <h3>Funktionen</h3>
+                <ul class="formeln">
+                  <li><span class="name">Lineare Funktion</span> <span class="formel">y = m · x + b</span></li>
+                  <li><span class="name">Steigung</span>
+                    <span class="formel">m = <span class="bruch"><span>y₂ − y₁</span><span>x₂ − x₁</span></span></span></li>
+                  <li><span class="name">Quadratische Funktion</span> <span class="formel">y = ax² + bx + c</span></li>
+                  <li><span class="name">Scheitelpunktform</span> <span class="formel">y = a(x − d)² + e</span></li>
+                  <li><span class="name">Exponentialfunktion</span> <span class="formel">y = a · bˣ</span></li>
+                </ul>
+                <a href="#kontakt" class="button button-rot">Stunde zu Funktionen anfragen</a>
+                <span class="seitenzahl">– 94 –</span>
+              </article>
+
+              <!-- Kapitel 6: Weitere Schulmathematik -->
+              <article class="kapitel kapitel-mehr">
+                <p class="handschrift">Kapitel 6</p>
                 <h3>Weitere Schulmathe</h3>
                 <ul class="formeln">
                   <li><span class="name">Prozentwert</span>
                     <span class="formel">W = G · <span class="bruch"><span>p</span><span>100</span></span></span></li>
-                  <li><span class="name">Lineare Funktion</span> <span class="formel">y = m · x + b</span></li>
-                  <li><span class="name">1. binomische Formel</span> <span class="formel">(a + b)² = a² + 2ab + b²</span></li>
+                  <li><span class="name">Zinsen</span>
+                    <span class="formel">Z = K · <span class="bruch"><span>p</span><span>100</span></span></span></li>
                   <li><span class="name">Brüche multiplizieren</span>
                     <span class="formel"><span class="bruch"><span>a</span><span>b</span></span> · <span class="bruch"><span>c</span><span>d</span></span> = <span class="bruch"><span>a · c</span><span>b · d</span></span></span></li>
+                  <li><span class="name">Brüche teilen</span>
+                    <span class="formel"><span class="bruch"><span>a</span><span>b</span></span> : <span class="bruch"><span>c</span><span>d</span></span> = <span class="bruch"><span>a</span><span>b</span></span> · <span class="bruch"><span>d</span><span>c</span></span></span></li>
                   <li><span class="name">Potenzen</span> <span class="formel">aⁿ · aᵐ = aⁿ⁺ᵐ</span></li>
+                  <li><span class="name">Wurzeln</span> <span class="formel">√a · √b = √(a · b)</span></li>
                 </ul>
                 <a href="#kontakt" class="button button-rot">Stunde zu diesem Thema anfragen</a>
-                <span class="seitenzahl">– 78 –</span>
+                <span class="seitenzahl">– 112 –</span>
               </article>
 
               <!-- Die Blätter für die Umblätter-Animation (nur Deko) -->
@@ -1029,6 +1091,8 @@
             <option>Geometrie</option>
             <option>Trigonometrie</option>
             <option>Ähnlichkeit</option>
+            <option>Gleichungen & Terme</option>
+            <option>Funktionen</option>
             <option>Weitere Schulmathematik</option>
           </select>
 
