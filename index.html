@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- ============================================================
+       KOPF (head): Infos für den Browser – nicht sichtbar auf der Seite
+       ============================================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathe-Nachhilfe | Verständlich, geduldig, persönlich</title>
+  <meta name="description" content="Persönliche Mathe-Nachhilfe für Schülerinnen und Schüler: Geometrie, Trigonometrie, Ähnlichkeit und mehr. Jetzt kostenlose Probestunde anfragen.">
+
+  <!-- Schriftart "Nunito" von Google Fonts: rund, freundlich und gut lesbar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       1. FARBEN & GRUNDWERTE
+       Hier kannst du die Farben der ganzen Seite an einer Stelle ändern.
+       ============================================================ */
+    :root {
+      --blau: #1e4fa3;          /* Hauptfarbe: wirkt ruhig und vertrauenswürdig */
+      --blau-dunkel: #163b7a;
+      --blau-hell: #eaf1fc;     /* sanfter Hintergrund für Abschnitte */
+      --gelb: #ffc94d;          /* freundliche Akzentfarbe */
+      --text: #1f2937;          /* fast schwarz – angenehmer als reines Schwarz */
+      --text-leise: #5b6475;
+      --weiss: #ffffff;
+      --rand: #e3e8f0;
+      --radius: 16px;           /* Rundung der Ecken */
+      --schatten: 0 8px 24px rgba(30, 79, 163, 0.08);
+      --breite: 1100px;         /* maximale Inhaltsbreite */
+    }
+
+    /* ============================================================
+       2. GRUNDLAGEN (gilt für die ganze Seite)
+       ============================================================ */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }   /* sanftes Scrollen bei Menü-Klicks */
+
+    body {
+      font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 1.0625rem;   /* ca. 17px – gut lesbar */
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--weiss);
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: var(--blau); }
+
+    h1, h2, h3 { line-height: 1.25; font-weight: 800; color: var(--text); }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
+    h2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); margin-bottom: 0.75rem; }
+    h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+
+    /* Begrenzt die Breite des Inhalts und zentriert ihn */
+    .container {
+      max-width: var(--breite);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Jeder Abschnitt bekommt viel Luft nach oben und unten */
+    section { padding: 88px 0; }
+    section[id] { scroll-margin-top: 70px; } /* Platz für den festen Kopfbereich */
+
+    .abschnitt-hell { background: var(--blau-hell); }
+
+    .einleitung {
+      color: var(--text-leise);
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+
+    .kleiner-titel {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blau);
+      margin-bottom: 8px;
+    }
+
+    /* ============================================================
+       3. BUTTONS
+       ============================================================ */
+    .button {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .button:hover { transform: translateY(-2px); }
+
+    .button-gelb { background: var(--gelb); color: var(--text); }
+    .button-gelb:hover { background: #ffbe2e; }
+
+    .button-blau { background: var(--blau); color: var(--weiss); }
+    .button-blau:hover { background: var(--blau-dunkel); }
+
+    .button-rahmen { border-color: var(--blau); color: var(--blau); background: transparent; }
+
+    /* Sichtbarer Fokus für Tastatur-Nutzer (Barrierefreiheit) */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--gelb);
+      outline-offset: 2px;
+    }
+
+    /* ============================================================
+       4. KOPFBEREICH mit Navigation
+       ============================================================ */
+    header {
+      position: sticky;      /* bleibt beim Scrollen oben stehen */
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid var(--rand);
+    }
+    .kopf {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 68px;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-zeichen {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--blau);
+      color: var(--weiss);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+    }
+    nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--text-leise);
+      font-weight: 600;
+    }
+    nav a:hover { color: var(--blau); }
+
+    /* ============================================================
+       5. STARTSEITE (Hero)
+       ============================================================ */
+    .hero { padding: 96px 0 104px; }
+    .hero-raster {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-leise);
+      margin: 20px 0 32px;
+      max-width: 540px;
+    }
+    .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hervorhebung {
+      background: linear-gradient(transparent 60%, var(--gelb) 60%);
+    }
+    .vorteile {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      margin-top: 28px;
+      list-style: none;
+      color: var(--text-leise);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .vorteile li::before { content: "✓ "; color: var(--blau); font-weight: 800; }
+
+    /* Dekorative Mathe-Karte rechts neben der Begrüßung */
+    .hero-bild {
+      background: var(--blau-hell);
+      border-radius: 28px;
+      padding: 40px;
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--blau);
+      text-align: center;
+      line-height: 2;
+    }
+    .hero-bild span { display: block; }
+    .hero-bild .klein { font-size: 0.6em; color: var(--text-leise); font-weight: 600; }
+
+    /* ============================================================
+       6. ÜBER MICH
+       ============================================================ */
+    .ueber-raster {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    /* Platzhalter für das Foto – später durch <img> ersetzen */
+    .foto-platzhalter {
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius);
+      background: var(--weiss);
+      border: 2px dashed #b9c6dc;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--text-leise);
+      padding: 20px;
+    }
+    .ueber-text p { margin-bottom: 16px; }
+    .platzhalter-text {
+      background: #fff8e1;
+      border-left: 4px solid var(--gelb);
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: var(--text-leise);
+    }
+
+    /* ============================================================
+       7. KARTEN (für Themen und Preise)
+       ============================================================ */
+    .raster-karten {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .karte {
+      background: var(--weiss);
+      border: 1px solid var(--rand);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--schatten);
+    }
+    .karte p { color: var(--text-leise); }
+    .symbol {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: var(--blau-hell);
+      color: var(--blau);
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    /* ============================================================
+       8. ABLAUF (3 Schritte)
+       ============================================================ */
+    .schritte {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      list-style: none;
+      counter-reset: schritt;     /* automatische Nummerierung */
+    }
+    .schritt {
+      position: relative;
+      background: var(--weiss);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--schatten);
+    }
+    .schritt::before {
+      counter-increment: schritt;
+      content: counter(schritt);  /* zeigt 1, 2, 3 */
+      display: grid;
+      place-items: center;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--gelb);
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+    .schritt p { color: var(--text-leise); }
+
+    /* ============================================================
+       9. PREISE
+       ============================================================ */
+    .preis {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--blau);
+      margin: 8px 0 4px;
+    }
+    .preis small { font-size: 1rem; color: var(--text-leise); font-weight: 600; }
+    .karte-beliebt { border: 2px solid var(--blau); position: relative; }
+    .etikett {
+      position: absolute;
+      top: -14px; left: 28px;
+      background: var(--blau);
+      color: var(--weiss);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    .preis-hinweis { margin-top: 24px; color: var(--text-leise); font-size: 0.95rem; }
+
+    /* ============================================================
+       10. KONTAKT
+       ============================================================ */
+    .kontakt-raster {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+    }
+    .kontakt-infos { list-style: none; margin-top: 24px; }
+    .kontakt-infos li {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .kontakt-infos .symbol { margin: 0; width: 44px; height: 44px; font-size: 1.2rem; }
+    .kontakt-infos strong { display: block; font-size: 0.85rem; color: var(--text-leise); }
+
+    form {
+      background: var(--weiss);
+      padding: 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--schatten);
+      border: 1px solid var(--rand);
+    }
+    label { display: block; font-weight: 700; margin-bottom: 6px; }
+    input, textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--rand);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 1rem;     /* 16px verhindert automatisches Zoomen auf dem iPhone */
+      margin-bottom: 20px;
+      background: #fbfcfe;
+    }
+    input:focus, textarea:focus { border-color: var(--blau); background: var(--weiss); }
+    textarea { min-height: 140px; resize: vertical; }
+    form .button { width: 100%; }
+    .formular-hinweis { font-size: 0.85rem; color: var(--text-leise); margin-top: 12px; text-align: center; }
+
+    /* ============================================================
+       11. FUSSZEILE
+       ============================================================ */
+    footer {
+      background: var(--text);
+      color: #c9d1de;
+      padding: 32px 0;
+      font-size: 0.95rem;
+    }
+    .fuss {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer a { color: #c9d1de; margin-left: 16px; }
+
+    /* ============================================================
+       12. ANPASSUNG FÜR TABLET UND HANDY ("Media Queries")
+       Diese Regeln gelten nur, wenn der Bildschirm schmal ist.
+       ============================================================ */
+
+    /* Tablet: bis 900px Breite */
+    @media (max-width: 900px) {
+      section { padding: 64px 0; }
+      .hero { padding: 56px 0 64px; }
+      .hero-raster,
+      .ueber-raster,
+      .kontakt-raster { grid-template-columns: 1fr; gap: 36px; }
+      .hero-bild { max-width: 360px; aspect-ratio: auto; padding: 32px; }
+      .foto-platzhalter { max-width: 280px; }
+      .schritte { grid-template-columns: 1fr; }
+    }
+
+    /* Handy: bis 600px Breite */
+    @media (max-width: 600px) {
+      body { font-size: 1rem; }
+      .kopf { padding: 12px 0; }
+      nav { width: 100%; }
+      nav ul {
+        gap: 18px;
+        overflow-x: auto;          /* Menü lässt sich seitlich wischen */
+        padding-bottom: 4px;
+        white-space: nowrap;
+      }
+      .kopf .button { display: none; } /* Button im Kopf ausblenden, spart Platz */
+      .hero-buttons .button { width: 100%; text-align: center; }
+      form { padding: 22px; }
+      .container { padding: 0 16px; }
+      footer a { margin: 0 16px 0 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============================================================
+       KÖRPER (body): alles, was man auf der Seite sieht
+       ============================================================ -->
+
+  <!-- ---------- Kopfbereich mit Menü ---------- -->
+  <header>
+    <div class="container kopf">
+      <a href="#start" class="logo">
+        <span class="logo-zeichen">π</span>
+        Mathe-Nachhilfe
+      </a>
+      <nav aria-label="Hauptmenü">
+        <ul>
+          <li><a href="#ueber-mich">Über mich</a></li>
+          <li><a href="#themen">Themen</a></li>
+          <li><a href="#ablauf">Ablauf</a></li>
+          <li><a href="#preise">Preise</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+      <a href="#kontakt" class="button button-blau">Probestunde anfragen</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ---------- 1. Startseite / Begrüßung ---------- -->
+    <section class="hero" id="start">
+      <div class="container hero-raster">
+        <div>
+          <span class="kleiner-titel">Mathe-Nachhilfe für Schülerinnen und Schüler</span>
+          <h1>Mathe verstehen – <span class="hervorhebung">Schritt für Schritt.</span></h1>
+          <p>
+            Hallo und herzlich willkommen! Ich helfe dir, Mathe wirklich zu verstehen –
+            geduldig, in deinem Tempo und ohne Druck. So gehst du wieder entspannt
+            in die nächste Klassenarbeit.
+          </p>
+          <div class="hero-buttons">
+            <a href="#kontakt" class="button button-gelb">Probestunde anfragen</a>
+            <a href="#ablauf" class="button button-rahmen">So läuft es ab</a>
+          </div>
+          <ul class="vorteile">
+            <li>Erste Stunde kostenlos</li>
+            <li>Individuell & persönlich</li>
+            <li>Für Unter- und Mittelstufe</li>
+          </ul>
+        </div>
+
+        <!-- Dekoratives Element mit Formeln -->
+        <div class="hero-bild" aria-hidden="true">
+          <div>
+            <span>a² + b² = c²</span>
+            <span>sin α = <span style="display:inline">G / H</span></span>
+            <span class="klein">Wir schaffen das gemeinsam!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 2. Über mich ---------- -->
+    <section class="abschnitt-hell" id="ueber-mich">
+      <div class="container ueber-raster">
+        <!-- PLATZHALTER: Ersetze dieses div später durch:
+             <img src="foto.jpg" alt="Foto von [Dein Name]" class="foto-platzhalter"> -->
+        <div class="foto-platzhalter">
+          <div>📷<br>Hier kommt<br>dein Foto hin</div>
+        </div>
+
+        <div class="ueber-text">
+          <span class="kleiner-titel">Über mich</span>
+          <h2>Hallo, ich bin [Dein Name]</h2>
+          <p class="platzhalter-text">
+            Platzhalter: Schreibe hier 3–4 Sätze über dich. Zum Beispiel: Wer du bist,
+            was du studierst oder machst, wie lange du schon Nachhilfe gibst und warum
+            dir Mathe Spaß macht.
+          </p>
+          <p>
+            Mir ist wichtig, dass sich jede Schülerin und jeder Schüler wohlfühlt.
+            Fragen sind bei mir immer willkommen – denn genau so lernt man am besten.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 3. Themen ---------- -->
+    <section id="themen">
+      <div class="container">
+        <span class="kleiner-titel">Themen</span>
+        <h2>Dabei kann ich dir helfen</h2>
+        <p class="einleitung">
+          Von Grundlagen bis zur Prüfungsvorbereitung – wir arbeiten genau an den Themen,
+          die gerade in deiner Klasse dran sind.
+        </p>
+
+        <div class="raster-karten">
+          <article class="karte">
+            <div class="symbol" aria-hidden="true">△</div>
+            <h3>Geometrie</h3>
+            <p>Flächen, Umfang, Volumen, Winkel und der Satz des Pythagoras – anschaulich erklärt.</p>
+          </article>
+          <article class="karte">
+            <div class="symbol" aria-hidden="true">∠</div>
+            <h3>Trigonometrie</h3>
+            <p>Sinus, Kosinus und Tangens verstehen und sicher in Aufgaben anwenden.</p>
+          </article>
+          <article class="karte">
+            <div class="symbol" aria-hidden="true">≈</div>
+            <h3>Ähnlichkeit</h3>
+            <p>Strahlensätze, Maßstab und ähnliche Figuren – mit vielen Beispielen aus dem Alltag.</p>
+          </article>
+          <article class="karte">
+            <div class="symbol" aria-hidden="true">+</div>
+            <h3>Weitere Schulmathematik</h3>
+            <p>Brüche, Gleichungen, Funktionen, Prozentrechnung und alles, was sonst ansteht.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 4. Ablauf ---------- -->
+    <section class="abschnitt-hell" id="ablauf">
+      <div class="container">
+        <span class="kleiner-titel">Ablauf</span>
+        <h2>In drei einfachen Schritten</h2>
+        <p class="einleitung">Unkompliziert und ohne Verpflichtung – so starten wir gemeinsam.</p>
+
+        <ol class="schritte">
+          <li class="schritt">
+            <h3>Kontakt aufnehmen</h3>
+            <p>Schreib mir über das Formular, per E-Mail oder ruf an. Ich melde mich schnell zurück.</p>
+          </li>
+          <li class="schritt">
+            <h3>Kostenlose Probestunde</h3>
+            <p>Wir lernen uns kennen, schauen, wo es hakt, und du siehst, ob es passt.</p>
+          </li>
+          <li class="schritt">
+            <h3>Regelmäßige Termine</h3>
+            <p>Wir vereinbaren feste Zeiten, die gut in deinen Wochenplan passen.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ---------- 5. Preise (Platzhalter) ---------- -->
+    <section id="preise">
+      <div class="container">
+        <span class="kleiner-titel">Preise</span>
+        <h2>Faire und klare Preise</h2>
+        <p class="einleitung">Keine versteckten Kosten. Die Probestunde ist immer kostenlos.</p>
+
+        <div class="raster-karten">
+          <article class="karte">
+            <h3>Probestunde</h3>
+            <p class="preis">0 €</p>
+            <p>Kennenlernen und erste Hilfe bei aktuellen Themen.</p>
+          </article>
+          <article class="karte karte-beliebt">
+            <span class="etikett">Beliebt</span>
+            <h3>Einzelstunde</h3>
+            <p class="preis">[XX] € <small>/ 60 Min.</small></p>
+            <p>Flexibel buchbar, ideal vor Klassenarbeiten.</p>
+          </article>
+          <article class="karte">
+            <h3>10er-Paket</h3>
+            <p class="preis">[XX] € <small>/ 10 Std.</small></p>
+            <p>Für regelmäßige Termine – günstiger pro Stunde.</p>
+          </article>
+        </div>
+        <p class="preis-hinweis">Platzhalter: Trage hier deine echten Preise ein.</p>
+      </div>
+    </section>
+
+    <!-- ---------- 6. Kontakt ---------- -->
+    <section class="abschnitt-hell" id="kontakt">
+      <div class="container kontakt-raster">
+        <div>
+          <span class="kleiner-titel">Kontakt</span>
+          <h2>Probestunde anfragen</h2>
+          <p>Schreib mir einfach eine kurze Nachricht – gerne auch als Elternteil. Ich antworte in der Regel innerhalb von 24 Stunden.</p>
+
+          <ul class="kontakt-infos">
+            <li>
+              <span class="symbol" aria-hidden="true">☎</span>
+              <span><strong>Telefon</strong>[Deine Telefonnummer]</span>
+            </li>
+            <li>
+              <span class="symbol" aria-hidden="true">✉</span>
+              <span><strong>E-Mail</strong>[deine@email.de]</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Das Formular: Damit es Nachrichten wirklich verschickt, braucht man
+             einen Dienst (z. B. Formspree). Dessen Adresse kommt dann in "action". -->
+        <form action="#" method="post">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Vor- und Nachname" autocomplete="name" required>
+
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" placeholder="name@beispiel.de" autocomplete="email" required>
+
+          <label for="nachricht">Nachricht</label>
+          <textarea id="nachricht" name="nachricht" placeholder="Klasse, Thema und wann du Zeit hast …" required></textarea>
+
+          <button type="submit" class="button button-gelb">Nachricht senden</button>
+          <p class="formular-hinweis">Deine Daten werden nur zur Beantwortung deiner Anfrage verwendet.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ---------- Fußzeile ---------- -->
+  <footer>
+    <div class="container fuss">
+      <span>© 2026 Mathe-Nachhilfe [Dein Name]</span>
+      <span>
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
