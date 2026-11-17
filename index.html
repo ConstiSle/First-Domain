@@ -270,23 +270,26 @@
       gap: 56px;
       align-items: center;
     }
-    .foto-platzhalter {
+    .foto {
+      width: 100%;
+      height: auto;
       aspect-ratio: 4 / 5;
+      object-fit: cover;          /* Bild füllt den Rahmen, ohne verzerrt zu werden */
       border-radius: var(--radius);
-      background: var(--karte);
-      border: 2px dashed #3a4d78;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      color: var(--text-leise);
-      padding: 20px;
+      border: 3px solid var(--rand);
+      box-shadow: var(--schatten), 12px 12px 0 rgba(215, 38, 61, 0.55); /* roter "Versatz-Schatten" */
+      transition: transform 0.3s;
     }
+    .foto:hover { transform: rotate(-1.5deg) scale(1.02); }
     .ueber-text p { margin-bottom: 16px; color: var(--text-leise); }
-    .platzhalter-text {
+    .zitat {
       background: rgba(215, 38, 61, 0.08);
       border-left: 4px solid var(--rot);
       padding: 12px 16px;
       border-radius: 8px;
+      color: var(--text) !important;
+      font-weight: 600;
+      font-size: 1.15rem;
     }
 
     /* ============================================================
@@ -571,7 +574,7 @@
       margin-bottom: 16px;
     }
 
-    .preis {
+    .karte .preis {
       font-size: 2.2rem;
       font-weight: 800;
       color: var(--text);
@@ -589,6 +592,7 @@
       padding: 4px 12px;
       border-radius: 999px;
     }
+    .karte .ersparnis { color: #ff8a98; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
     .preis-hinweis { margin-top: 24px; color: var(--text-leise); font-size: 0.95rem; }
 
     /* ============================================================
@@ -675,7 +679,7 @@
       .ueber-raster,
       .kontakt-raster { grid-template-columns: 1fr; gap: 36px; }
       .hero-bild { max-width: 360px; aspect-ratio: auto; padding: 32px; }
-      .foto-platzhalter { max-width: 280px; }
+      .foto { max-width: 300px; }
       .schritte { grid-template-columns: 1fr; }
 
       /* Das Buch: Seiten stehen untereinander, Blätter klappen nach oben */
@@ -784,19 +788,19 @@
     <!-- ---------- 2. Über mich ---------- -->
     <section class="abschnitt-hell" id="ueber-mich">
       <div class="container ueber-raster einblenden">
-        <!-- PLATZHALTER: Ersetze dieses div später durch:
-             <img src="foto.jpg" alt="Foto von [Dein Name]" class="foto-platzhalter"> -->
-        <div class="foto-platzhalter">
-          <div>📷<br>Hier kommt<br>dein Foto hin</div>
-        </div>
+        <!-- Das Foto: Die Datei "constantin.jpg" muss im selben Ordner wie index.html liegen -->
+        <img src="constantin.jpg" alt="Foto von Constantin" class="foto" width="720" height="900">
 
         <div class="ueber-text">
           <span class="kleiner-titel">Über mich</span>
-          <h2>Hallo, ich bin [Dein Name]</h2>
-          <p class="platzhalter-text">
-            Platzhalter: Schreibe hier 3–4 Sätze über dich. Zum Beispiel: Wer du bist,
-            was du studierst oder machst, wie lange du schon Nachhilfe gibst und warum
-            dir Mathe Spaß macht.
+          <h2>Hallo, ich bin Constantin</h2>
+          <p class="zitat">
+            Ich bin 20 Jahre alt – und hatte früher selbst Probleme mit Mathe.
+            Deshalb weiß ich genau, wie sich das anfühlt.
+          </p>
+          <p>
+            Genau darum helfe ich heute gerne jungen Leuten dabei, Mathe zu verstehen.
+            Ich erkläre geduldig, Schritt für Schritt und so oft, wie es nötig ist.
           </p>
           <p>
             Mir ist wichtig, dass sich jede Schülerin und jeder Schüler wohlfühlt.
@@ -969,22 +973,24 @@
         <div class="raster-karten einblenden">
           <article class="karte">
             <h3>Einzelstunde</h3>
-            <p class="preis">[XX] € <small>/ 60 Min.</small></p>
+            <p class="preis">30 € <small>/ 60 Min.</small></p>
             <p>Flexibel buchbar, ideal vor Klassenarbeiten.</p>
           </article>
           <article class="karte karte-beliebt">
             <span class="etikett">Beliebt</span>
             <h3>5er-Paket</h3>
-            <p class="preis">[XX] € <small>/ 5 Std.</small></p>
+            <p class="preis">140 € <small>/ 5 Std.</small></p>
+            <p class="ersparnis">28 € pro Stunde – du sparst 10 €</p>
             <p>Für eine feste Lernphase, z. B. vor Zeugnissen.</p>
           </article>
           <article class="karte">
             <h3>10er-Paket</h3>
-            <p class="preis">[XX] € <small>/ 10 Std.</small></p>
-            <p>Für regelmäßige Termine – günstiger pro Stunde.</p>
+            <p class="preis">270 € <small>/ 10 Std.</small></p>
+            <p class="ersparnis">27 € pro Stunde – du sparst 30 €</p>
+            <p>Für regelmäßige Termine – am günstigsten pro Stunde.</p>
           </article>
         </div>
-        <p class="preis-hinweis">Platzhalter: Trage hier deine echten Preise ein.</p>
+        <p class="preis-hinweis">Eine Stunde dauert 60 Minuten. Pakete gelten für eine Schülerin bzw. einen Schüler.</p>
       </div>
     </section>
 
@@ -1038,7 +1044,7 @@
   <!-- ---------- Fußzeile ---------- -->
   <footer>
     <div class="container fuss">
-      <span>© 2026 Mathe-Nachhilfe [Dein Name]</span>
+      <span>© 2026 Mathe-Nachhilfe Constantin</span>
       <span>
         <a href="#">Impressum</a>
         <a href="#">Datenschutz</a>
